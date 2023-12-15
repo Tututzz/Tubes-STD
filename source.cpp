@@ -151,6 +151,36 @@ void deleteNodeR(listR &L, adr &p) {
     }
 }
 
+void deleteHotel(listH &LH, listR &LR, adrh p){
+    adr q= LR.first;
+    adr q2;
+    while (q!=NULL){
+        if(q->hotel == p){
+            q2 = q;
+            q = q->next;
+            deleteNodeR(LR,q2);
+        }else{
+            q = q->next;
+        }
+    }
+    deleteNodeH(LH, p);
+}
+
+void deletePerson(listP &LP, listR &LR, adrp p){
+    adr q= LR.first;
+    adr q2;
+    while (q!=NULL){
+        if(q->person == p){
+            q2 = q;
+            q = q->next;
+            deleteNodeR(LR,q2);
+        }else{
+            q = q->next;
+        }
+    }
+    deleteNodeP(LP, p);
+}
+
 adrh searchHotelByName(listH L, string nama) {
     adrh p = L.first;
     while (p != NULL) {
@@ -181,6 +211,7 @@ void printAllHotels(listH listHotel) {
     while (currentHotel != NULL) {
         cout << "Nama Hotel: " << currentHotel->info.nama << endl;
         cout << "Kota: " << currentHotel->info.kota << endl;
+        cout << "Alamat: " << currentHotel->info.alamat << endl;
         cout << "Harga: " << currentHotel->info.harga << endl;
         cout << "Bintang: " << currentHotel->info.bintang << endl;
         cout << "--------------------------------------" << endl;
@@ -229,19 +260,127 @@ void printAllPersons(listP listPerson) {
     cout << endl;
 }
 
+void printAllHotelWithReviewers(listH listHotel, listR listReview) {
+    adrh currentHotel = listHotel.first;
+
+    cout << "Daftar Hotel dan Reviewers:" << endl;
+    cout << "--------------------------------------" << endl;
+
+    while (currentHotel != NULL){
+        cout << "Nama Hotel: " << currentHotel->info.nama << endl;
+        cout << "Kota: " << currentHotel->info.kota << endl;
+        cout << "Alamat: " << currentHotel->info.alamat << endl;
+        cout << "Harga: " << currentHotel->info.harga << endl;
+        cout << "Bintang: " << currentHotel->info.bintang << endl;
+        adr currentReview = listReview.first;
+        bool hasReview = false;
+        while (currentReview != NULL) {
+            if (currentReview->hotel == currentHotel) {
+                cout << "Reviewer: " << currentReview->person->info.nama << endl;
+                cout << "Review: " << currentReview->review << endl;
+                cout << "--------------------------------------" << endl;
+                hasReview = true;
+            }
+
+            currentReview = currentReview->next;
+        }
+        if (!hasReview) {
+            cout << "Belum ada review untuk hotel ini." << endl;
+            cout << "--------------------------------------" << endl;
+        }
+        currentHotel = currentHotel->next;
+    }
+
+    cout << endl;
+}
+
+bool Reviewerhoteltertentu(listR LR,listH LH, listP LP, string orang, string hotel){
+    adr p = LR.first;
+    adrh ph =searchHotelByName(LH,hotel);
+    adrp pp = searchPersonByName(LP,orang);
+    if (ph == NULL || pp == NULL){
+        return false;
+    }
+    while (p!=NULL) {
+        if (p->hotel == ph && p->person == pp){
+            return true;
+        }
+        p= p->next;
+    }
+    return false;
+}
+
+int JumlahReviewhoteltertentu(listR LR,listH LH, listP LP, string hotel){
+    adrh ph =searchHotelByName(LH,hotel);
+    adr p = LR.first;
+    int c=0;
+    if (ph == NULL){
+        cout <<"orang tidak ada atau hotel tidak ada"<<endl;
+        return c;
+    }
+    while (p!=NULL) {
+        if (p->hotel == ph){
+            c++;
+        }
+        p= p->next;
+    }
+    return c;
+}
+
+int JumlahReviewerhoteltertentu(listR LR,string hotel){
+    adr p = LR.first;
+    int counter =0;
+    while(p !=NULL){
+        if (p->hotel->info.nama == hotel && isnotDuplikatReview(p)){
+            counter++;
+        }
+        p=p->next;
+    }
+    return counter;
+}
+
+bool isnotDuplikatReview(adr p){
+    adr q = p->next;
+    while(q!=NULL){
+        if (q->person->info.nama == p->person->info.nama && q->hotel->info.nama == p->hotel->info.nama){
+            return false;
+        }
+        q= q->next;
+    }
+    return true;
+};
+
+adr searchPersonRelasi(listR L, string nama) {
+    adr p = L.first;
+    while (p != NULL) {
+        if (p->person->info.nama == nama) {
+            return p;
+        }
+        p = p->next;
+    }
+    return NULL; // Jika tidak ditemukan
+}
 
 
 int mainMenu() {
     int choice;
     cout << "=========== Main Menu ===========" << endl;
-    cout << "1. Tambah Hotel" << endl;
-    cout << "2. Tambah Person" << endl;
-    cout << "3. Tambah Review" << endl;
-    cout << "4. Tampilkan Semua Hotel" << endl;
-    cout << "5. Tampilkan Semua Person" << endl;
-    cout << "6. Tampilkan Semua Review" << endl;
-    cout << "7. Keluar" << endl;
-    cout << "Pilih menu (1-7): ";
+    cout << "1. Tambah data hotel" << endl;
+    cout << "2. Tampilkan semua hotel" << endl;
+    cout << "3. Tampilkan semua person" << endl;
+    cout << "4. Tampilkan semua review" << endl;
+    cout << "5. Menghapus data hotel beserta review" << endl;
+    cout << "6. Mencari data hotel" << endl;
+    cout << "7. Mencari data pengguna" << endl;
+    cout << "8. Tambah data pengguna" << endl;
+    cout << "9. Tambah review" << endl;
+    cout << "10. Tampilkan data hotel beserta review pengguna" << endl;
+    cout << "11. Mencari data pengguna pada hotel tertentu"<<endl;
+    cout << "12. Menghapus data pengguna beserta reviewnya"<<endl;
+    cout << "13. Menghitung jumlah reviewer pada hotel tertentu" << endl;
+    cout << "14. Exit" << endl;
+    cout << "Pilih menu (1-14):";
     cin >> choice;
     return choice;
 }
+
