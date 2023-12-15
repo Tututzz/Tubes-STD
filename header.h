@@ -75,13 +75,23 @@ void insertAfterR(listR &L, adr prec, adr p);
 void deleteNodeH(listH &L, adrh &p);
 void deleteNodeP(listP &L, adrp &p);
 void deleteNodeR(listR &L, adr &p);
+void deleteHotel(listH &LH, listR &LR, adrh p);
+void deletePerson(listP &LP, listR &LR, adrp p);
 
 adrh searchHotelByName(listH L, string nama);
 adrp searchPersonByName(listP L, string np);
+adr searchPersonRelasi(listR L, string nama);
 
 void printAllHotels(listH listHotel);
 void printAllReviews(listR listReview);
 void printAllPersons(listP listPerson);
+void printAllHotelWithReviewers(listH listHotel, listR listReview);
+
+bool Reviewerhoteltertentu(listR LR,listH LH, listP LP, string orang, string hotel);
+int JumlahReviewhoteltertentu(listR LR,listH LH, listP LP, string hotel);
+int JumlahReviewerhoteltertentu(listR LR,string hotel);
+
+bool isnotDuplikatReview(adr p);
 
 int mainMenu();
 

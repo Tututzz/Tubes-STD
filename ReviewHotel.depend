@@ -1,0 +1,31 @@
+# depslib dependency file v1.0
+1702354936 source:e:\kuliah semester 3\std\tubes\reviewhotel\source.cpp
+	"header.h"
+
+1702354947 e:\kuliah semester 3\std\tubes\reviewhotel\header.h
+	<iostream>
+	<string>
+	<stdlib.h>
+
+1702397161 source:d:\semester 3\praktstrukdat\tubes\reviewhotel\main.cpp
+	"header.h"
+
+1702397149 d:\semester 3\praktstrukdat\tubes\reviewhotel\header.h
+	<iostream>
+	<string>
+	<stdlib.h>
+
+1702397212 source:d:\semester 3\praktstrukdat\tubes\reviewhotel\source.cpp
+	"header.h"
+
+1702437327 source:e:\kuliah semester 3\std\tubes\reviewhotel-bayu\reviewhotel\main.cpp
+	"header.h"
+
+1702397150 e:\kuliah semester 3\std\tubes\reviewhotel-bayu\reviewhotel\header.h
+	<iostream>
+	<string>
+	<stdlib.h>
+
+1702436664 source:e:\kuliah semester 3\std\tubes\reviewhotel-bayu\reviewhotel\source.cpp
+	"header.h"
+
