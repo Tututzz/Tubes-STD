@@ -50,6 +50,19 @@ int main() {
     insertLastR(listReview, reviewNode3);
 
     int choice;
+    char s;
+    while (s != 'X'){
+        std::cout << "======================================================" << std::endl;
+        std::cout << "||                APLIKASI REVIEW HOTEL             ||" << std::endl;
+        std::cout << "||              TUGAS BESAR STURUKTUR DATA          ||" << std::endl;
+        std::cout << "======================================================" << std::endl;
+        std::cout << "Bayu Tiadi Nurul Fajar     ||    Helmi Efendi Lubis  " << std::endl;
+        std::cout << "      1301223199           ||          1301223338     " << std::endl;
+        std::cout << "======================================================" << std::endl;
+        std::cout << "Input X untuk melanjutkan...." << std::endl;
+        cin >> s;
+        system("CLS");
+    }
     do {
         choice = mainMenu();
 
